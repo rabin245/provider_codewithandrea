@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChangeNotifierProvider<Counter>(
-        create: (context) => Counter(),
+      home: ChangeNotifierProvider<ValueNotifier<int>>(
+        create: (context) => ValueNotifier<int>(0),
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counter = Provider.of<Counter>(context, listen: false);
+    final counter = Provider.of<ValueNotifier<int>>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +42,7 @@ class MyHomePage extends StatelessWidget {
             Text(
               'You have pushed the button this many times:',
             ),
-            Consumer<Counter>(
+            Consumer<ValueNotifier<int>>(
               builder: (_, counter, __) => Text(
                 // builder: (context, counter, child) => Text(
                 '${counter.value}',
@@ -54,7 +54,8 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counter.increment();
+          // counter.increment();
+          counter.value++;
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
